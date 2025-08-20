@@ -1,0 +1,32 @@
+import random
+import string
+
+def gerar_senha(tamanho=12, maiusculas=True, minusculas=True, numeros=True, simbolos=True):
+    """Gera uma senha segura com base nos parâmetros escolhidos."""
+
+    caracteres = ""
+    if maiusculas:
+        caracteres += string.ascii_uppercase
+    if minusculas:
+        caracteres += string.ascii_lowercase
+    if numeros:
+        caracteres += string.digits
+    if simbolos:
+        caracteres += string.punctuation
+
+    if not caracteres:
+        raise ValueError("Selecione pelo menos um tipo de caractere para a senha.")
+
+    senha = "".join(random.choice(caracteres) for _ in range(tamanho))
+    return senha
+
+if __name__ == "__main__":
+    print("=== Gerador de Senhas Seguras ===")
+    try:
+        tamanho = int(input("Digite o tamanho da senha (padrão: 12): ") or 12)
+    except ValueError:
+        print("Entrada inválida, usando valor padrão (12).")
+        tamanho = 12
+
+    senha = gerar_senha(tamanho=tamanho)
+    print(f"\n🔑 Sua senha segura é: {senha}")
